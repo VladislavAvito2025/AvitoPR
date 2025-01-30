@@ -23,7 +23,7 @@
             // Используем переменные окружения
             const botToken = process.env.TELEGRAM_BOT_TOKEN; 
             const chatId = process.env.TELEGRAM_CHAT_ID; //
-            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const apiUrl = `https://cors-anywhere.herokuapp.com/https://api.telegram.org/bot${botToken}/sendMessage`;
 
             try {
                 const response = await fetch(apiUrl, {
