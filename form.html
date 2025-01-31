@@ -12,41 +12,38 @@
 
         // Функция для отправки данных в Telegram
         async function sendToTelegram(event) {
-            event.preventDefault(); // Отменяем стандартное поведение формы
+    event.preventDefault(); // Отменяем стандартное поведение формы
 
-            const telegramNick = document.getElementById('telegramNick').value;
-            const question = document.getElementById('question').value;
+    const telegramNick = document.getElementById('telegramNick').value;
+    const question = document.getElementById('question').value;
 
-            // Формируем сообщение
-            const message = `Новый запрос на тариф: ${selectedTariff}\nTelegram: @${telegramNick}\nВопрос: ${question || "Нет вопроса"}`;
+    try {
+        // Отправляем данные на сервер
+        const response = await fetch('http://localhost:3000/send-to-telegram', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                telegramNick,
+                question,
+                selectedTariff,
+            }),
+        });
 
-            // Используем переменные окружения
-            const botToken = process.env.TELEGRAM_BOT_TOKEN; // Токен из .env
-            const chatId = process.env.TELEGRAM_CHAT_ID; // chat_id из .env
-            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+        // Обрабатываем ответ от сервера
+        const result = await response.json();
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        chat_id: chatId,
-                        text: message,
-                    }),
-                });
-
-                if (response.ok) {
-                    alert('Ваш запрос успешно отправлен! Мы свяжемся с вами в Telegram.');
-                } else {
-                    alert('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
-                }
-            } catch (error) {
-                console.error('Ошибка:', error);
-                alert('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
-            }
+        if (result.success) {
+            alert('Ваш запрос успешно отправлен! Мы свяжемся с вами в Telegram.');
+        } else {
+            alert('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
         }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при отправке запроса. Пожалуйста, попробуйте еще раз.');
+    }
+}
     </script>
 </head>
 <body class="bg-blue-100 p-6">
