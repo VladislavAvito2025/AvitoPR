@@ -17,6 +17,9 @@
     const telegramNick = document.getElementById('telegramNick').value;
     const question = document.getElementById('question').value;
 
+    // Логирование данных перед отправкой
+    console.log('Данные для отправки:', { telegramNick, question, selectedTariff });
+
     try {
         // Отправляем данные на сервер
         const response = await fetch('http://localhost:3000/send-to-telegram', {
@@ -31,8 +34,9 @@
             }),
         });
 
-        // Обрабатываем ответ от сервера
+        // Логирование ответа сервера
         const result = await response.json();
+        console.log('Ответ сервера:', result);
 
         if (result.success) {
             alert('Ваш запрос успешно отправлен! Мы свяжемся с вами в Telegram.');
