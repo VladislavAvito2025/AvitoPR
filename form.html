@@ -21,8 +21,8 @@
             const message = `Новый запрос на тариф: ${selectedTariff}\nTelegram: @${telegramNick}\nВопрос: ${question || "Нет вопроса"}`;
 
             // Используем переменные окружения
-            const botToken = 'YOUR_BOT_TOKEN'; // Заменится GitHub Actions
-            const chatId = 'YOUR_CHAT_ID'; // Заменится GitHub Actions
+            const botToken = process.env.TELEGRAM_BOT_TOKEN; // Токен из .env
+            const chatId = process.env.TELEGRAM_CHAT_ID; // chat_id из .env
             const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
             try {
