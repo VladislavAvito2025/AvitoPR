@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оформление заказа</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Получаем выбранный тариф из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedTariff = urlParams.get('tariff');
+    </script>
 </head>
 <body class="bg-blue-100 p-6">
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
         <h1 class="text-2xl font-bold text-blue-900">Оформление заказа</h1>
         <p class="mt-2 text-gray-700">Вы выбрали тариф: <span id="selectedTariff" class="font-bold text-blue-600"></span></p>
-        
+
         <!-- Форма для отправки данных в Tally -->
-        <form id="tallyForm" action="https://tally.so/r/m6W17k" method="POST" target="_blank" class="mt-6">
+        <form 
+            class="mt-6" 
+            action="https://tally.so/r/m6W17k" 
+            method="POST"
+        >
             <!-- Скрытое поле для передачи выбранного тарифа -->
-            <input type="hidden" name="tariff" id="tallyTariff">
+            <input type="hidden" name="selectedTariff" id="selectedTariffInput">
 
             <div class="mb-4">
                 <label for="telegramNick" class="block text-gray-700 font-bold mb-2">Ваш Telegram-ник либо номер телефона:</label>
@@ -27,6 +36,7 @@
                     required
                 >
             </div>
+
             <div class="mb-4">
                 <label for="question" class="block text-gray-700 font-bold mb-2">Ваш вопрос (если есть):</label>
                 <textarea 
@@ -37,6 +47,7 @@
                     placeholder="Опишите ваш вопрос..."
                 ></textarea>
             </div>
+
             <button 
                 type="submit" 
                 class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -47,15 +58,11 @@
     </div>
 
     <script>
-        // Получаем выбранный тариф из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const selectedTariff = urlParams.get('tariff');
-
-        // Отображаем выбранный тариф на странице
-        document.getElementById('selectedTariff').textContent = selectedTariff;
-
-        // Устанавливаем значение тарифа в скрытое поле формы
-        document.getElementById('tallyTariff').value = selectedTariff;
+        // Отображаем выбранный тариф на странице и передаем его в скрытое поле
+        const selectedTariffElement = document.getElementById('selectedTariff');
+        const selectedTariffInput = document.getElementById('selectedTariffInput');
+        selectedTariffElement.textContent = selectedTariff;
+        selectedTariffInput.value = selectedTariff;
     </script>
 </body>
 </html>
