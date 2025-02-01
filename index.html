@@ -186,12 +186,45 @@
                     </ul>
                 </div>
                 
-                <a 
-                    href="/AvitoPR/form.html?tariff=Стандарт"
-                    class="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 block text-center"
+                <!-- Форма для отправки данных в Tally -->
+        <form 
+            class="mt-6" 
+            action="https://tally.so/r/m6W17k" 
+            method="POST"
+        >
+            <!-- Скрытое поле для передачи выбранного тарифа -->
+            <input type="hidden" name="selectedTariff" id="selectedTariffInput">
+
+            <div class="mb-4">
+                <label for="telegramNick" class="block text-gray-700 font-bold mb-2">Ваш Telegram-ник либо номер телефона:</label>
+                <input 
+                    type="text" 
+                    id="telegramNick" 
+                    name="telegramNick" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    placeholder="Введите ваш Telegram либо номер для связи (без @)" 
+                    required
                 >
-                    Выбрать
-                </a>
+            </div>
+
+            <div class="mb-4">
+                <label for="question" class="block text-gray-700 font-bold mb-2">Ваш вопрос (если есть):</label>
+                <textarea 
+                    id="question" 
+                    name="question" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    rows="4" 
+                    placeholder="Опишите ваш вопрос..."
+                ></textarea>
+            </div>
+
+            <button 
+                type="submit" 
+                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+                Отправить запрос
+            </button>
+        </form>
             </div>
         </div>
     </div>
